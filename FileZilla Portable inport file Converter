@@ -1,11 +1,12 @@
-# InporFile "sites.xml" Converter for "FileZilla Portable Ver3.6.0.2"(for w2k/xp early),
-#  from export FileZilla desktop later Ver3.12.
+# Export/Inport File "sites.xml" Converter for "FileZilla Portable Ver3.6.0.2"(for w2k/xp early) from Export later Ver3.12--
+#	<Pass encoding="base64">U21nUDVEQU0=</Pass> --> 平文 <Pass>plainText</Pass>
+
 # use oneLiner on dbu.cgi
-use MIME::Base64;$file="./tmp/sites.xml";$_=`cat $file`;s/(base64">)(.+)(</Pass>)/$1.decode_base64($2).$3/eg;`echo "$_" > $file`;print "complete Done ";
+use MIME::Base64;$file="./tmp/sites.xml";$_=`cat $file`;s/(base64">)(.+)(</Pass>)/$1.decode_base64($2).$3/eg;`echo "$_" > $file`;print "completeDone ";
 
 use MIME::Base64;
 $file="./tmp/sites.xml";
 $_=`cat $file`;
-s/(base64">)(.+)(</Pass>)/$1.decode_base64($2).$3/eg;
-`echo "$_" > $file`;					# use "$_" or '$_', NG if only $_.
+s/(base64">)(.+)(</Pass>)/$1.decode_base64($2).$3/eg;	# 重複実行しても合致せず変換されない
+`echo "$_" > $file`;					# use "$_" or '$_',  \n irregular NG if only $_.
 print "complete Done ";
