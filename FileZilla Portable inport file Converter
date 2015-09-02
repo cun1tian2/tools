@@ -1,3 +1,11 @@
 # InporFile "sites.xml" Converter for "FileZilla Portable Ver3.6.0.2"(for w2k/xp early),
 #  from export FileZilla desktop later Ver3.12.
+# use oneLiner on dbu.cgi
+use MIME::Base64;$file="./tmp/sites.xml";$_=`cat $file`;s/(base64">)(.+)(</Pass>)/$1.decode_base64($2).$3/eg;`echo "$_" > $file`;print "complete Done ";
 
+use MIME::Base64;
+$file="./tmp/sites.xml";
+$_=`cat $file`;
+s/(base64">)(.+)(</Pass>)/$1.decode_base64($2).$3/eg;
+`echo "$_" > $file`;					# use "$_" or '$_', NG if only $_.
+print "complete Done ";
