@@ -1,13 +1,16 @@
-# Export/Inport File "sites.xml" Converter for "FileZilla Portable Ver3.6.0.2"(for w2k/xp early) from Export later Ver3.12-- 
-#	<Pass encoding="base64">U21nUDVEQU0=</Pass> --> 平文 <Pass>plainText</Pass> 
+[FileZilla/sites].xml" Export/Inport File Converter
+ for Portable Ver3.6.0.2"(for w2k/xp early) from Desktop Ver3.12 or later.
+	<Pass encoding="base64">U21nUDVEQU0=</Pass> --> 平文 <Pass>plainText</Pass> 
 
-●● dbu.cgiでoneLiner実行、[FileZilla/sites].xmlファイルパス要確認、重複実行しても合致せず変換されないがFileは更新される。
-$file="../sc/tmp/FileZilla.xml";use MIME::Base64;$_=`cat $file`;s/ encoding="base64">(.+)</">".decode_base64($1)."<"/eg;;`echo "$_" > $file`;
+●● dbu.cgi ワンライナー実行、Fileパス要確認[FileZilla/sites].xml、重複実行しても合致せず変換されないがFileは更新される。
+$file="./tmp/FileZilla.xml";use MIME::Base64;$_=`cat $file`;s/ encoding="base64">(.+)</">".decode_base64($1)."<"/eg;`echo '$_' > $file`;
 
-$file="../sc/tmp/FileZilla.xml";
+$file="./tmp/FileZilla.xml";
 use MIME::Base64;
 $_=`cat $file`;
 s/ encoding="base64">(.+)</">".decode_base64($1)."<"/eg;
-`echo "$_" > $file`;
-----------------------------------------------------------
- shellで`cat ./file | sed -e 's///g' > ./file` の間にbase64をはさむ法 --> tk2aymhm28`whereis base64`--> `/usr/bin/base64 -help`が出ないしシェル変数用法不可解--ヤメ or 保留。
+`echo '$_' > $file`;
+
+●● 上記xmlファイルの場合、`echo '$_' > $file`;文中の 裸$_ "$_" は実行時エラー、'$_'でOK。
+--------------------------------------------------------------------------------------------------------------
+shellで`cat ./file | sed -e 's///g' > ./file` の間にbase64をはさむ法 --> `whereis base64`--> `/usr/bin/base64 -help`が出ないしシェル変数用法不可解--保留。
