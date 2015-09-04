@@ -5,7 +5,7 @@ E# Export/Inport File "sites.xml" Converter for "FileZilla Portable Ver3.6.0.2"(
 4 # use oneLiner on dbu.cgi 
 5 
  
-6 use MIME::Base64;$file="./tmp/sites.xml";$_=`cat $file`;s/(base64">)(.+)(</Pass>)/$1.decode_base64($2).$3/eg;`echo "$_" > $file`;print "completeDone "; 
+6 use MIME::Base64;$file="./tmp/sites.xml";$_=`cat $file`;s/(base64">)(.+)(<\/Pass>)/$1.decode_base64($2).$3/eg;`echo "$_" > $file`;print "completeDone "; 
 7 
  
 8 シェルで `cat ./file | sed -e 's///g' > ./file` の間にbase64をはさむ法 --> tk2aymhm28`whereis base64`--> `/usr/bin/base64 -help`が出ないしシェル変数用法不可解--ヤメ or 保留 
@@ -14,6 +14,6 @@ E# Export/Inport File "sites.xml" Converter for "FileZilla Portable Ver3.6.0.2"(
 10 use MIME::Base64; 
 11 $file="./tmp/sites.xml"; 
 12 $_=`cat $file`; 
-13 s/(base64">)(.+)(</Pass>)/$1.decode_base64($2).$3/eg;	# 重複実行しても合致せず変換されない 
+13 s/(base64">)(.+)(<\/Pass>)/$1.decode_base64($2).$3/eg;	# 重複実行しても合致せず変換されない 
 14 `echo "$_" > $file`;					# use "$_" or '$_',  \n irregular NG if only $_. 
 15 print "complete Done ";
