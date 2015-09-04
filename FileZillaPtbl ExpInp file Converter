@@ -1,19 +1,13 @@
-E# Export/Inport File "sites.xml" Converter for "FileZilla Portable Ver3.6.0.2"(for w2k/xp early) from Export later Ver3.12-- 
-2 #	<Pass encoding="base64">U21nUDVEQU0=</Pass> --> 平文 <Pass>plainText</Pass> 
-3 
- 
-4 # use oneLiner on dbu.cgi 
-5 
- 
-6 use MIME::Base64;$file="./tmp/sites.xml";$_=`cat $file`;s/(base64">)(.+)(<\/Pass>)/$1.decode_base64($2).$3/eg;`echo "$_" > $file`;print "completeDone "; 
-7 
- 
-8 シェルで `cat ./file | sed -e 's///g' > ./file` の間にbase64をはさむ法 --> tk2aymhm28`whereis base64`--> `/usr/bin/base64 -help`が出ないしシェル変数用法不可解--ヤメ or 保留 
-9 
- 
-10 use MIME::Base64; 
-11 $file="./tmp/sites.xml"; 
-12 $_=`cat $file`; 
-13 s/(base64">)(.+)(<\/Pass>)/$1.decode_base64($2).$3/eg;	# 重複実行しても合致せず変換されない 
-14 `echo "$_" > $file`;					# use "$_" or '$_',  \n irregular NG if only $_. 
-15 print "complete Done ";
+# Export/Inport File "sites.xml" Converter for "FileZilla Portable Ver3.6.0.2"(for w2k/xp early) from Export later Ver3.12-- 
+#	<Pass encoding="base64">U21nUDVEQU0=</Pass> --> 平文 <Pass>plainText</Pass> 
+
+●● dbu.cgiでoneLiner実行、[FileZilla/sites].xmlファイルパス要確認、重複実行しても合致せず変換されないがFileは更新される。
+$file="../sc/tmp/FileZilla.xml";use MIME::Base64;$_=`cat $file`;s/ encoding="base64">(.+)</">".decode_base64($1)."<"/eg;;`echo "$_" > $file`;
+
+$file="../sc/tmp/FileZilla.xml";
+use MIME::Base64;
+$_=`cat $file`;
+s/ encoding="base64">(.+)</">".decode_base64($1)."<"/eg;
+`echo "$_" > $file`;
+----------------------------------------------------------
+ shellで`cat ./file | sed -e 's///g' > ./file` の間にbase64をはさむ法 --> tk2aymhm28`whereis base64`--> `/usr/bin/base64 -help`が出ないしシェル変数用法不可解--ヤメ or 保留。
